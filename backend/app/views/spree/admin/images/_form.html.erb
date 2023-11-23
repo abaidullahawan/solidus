@@ -3,7 +3,7 @@
     <div class="col-3">
       <div data-hook="file" class="field">
         <%= f.label :attachment %><br>
-        <%= f.file_field :attachment %>
+        <%= f.file_field :attachment, accept: '.jpg, .jpeg, .png' %>
       </div>
       <div data-hook="variant" class="field">
         <%= f.label :viewable_id, Spree::Variant.model_name.human %><br>
