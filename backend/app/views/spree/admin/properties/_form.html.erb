@@ -7,10 +7,24 @@
     <% end %>
   </div>
   <div class="col-6">
+    <%= f.field_container :field_type do %>
+      <%= f.label :field_type, class: 'required' %><br>
+      <%= f.select :field_type, Spree::Property.field_types.keys.map { |type| [type.humanize, type] }, { include_blank: 'Select Type' }, class: 'form-control', required: true %>
+      <%= f.error_message_on :field_type %>
+    <% end %>
+  </div>
+  <div class="col-6">
     <%= f.field_container :presentation do %>
       <%= f.label :presentation, class: 'required' %><br>
       <%= f.text_field :presentation, class: 'fullwidth' %>
       <%= f.error_message_on :presentation %>
+    <% end %>
+  </div>
+  <div class="col-2">
+    <%= f.field_container :logo do %>
+      <%= f.label :logo, class: 'required' %><br>
+      <%= f.file_field :logo, accept: '.jpg, .jpeg, .png' %>
+      <%= f.error_message_on :logo, accept: '.jpg, .jpeg, .png' %>
     <% end %>
   </div>
 </div>

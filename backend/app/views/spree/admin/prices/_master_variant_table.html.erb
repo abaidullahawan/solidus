@@ -13,6 +13,7 @@
     </colgroup>
     <thead data-hook="master_prices_header">
       <tr>
+        <th><%= Spree::Price.human_attribute_name(:title) %></th>
         <th><%= Spree::Price.human_attribute_name(:country) %></th>
         <th><%= Spree::Price.human_attribute_name(:currency) %></th>
         <th><%= Spree::Price.human_attribute_name(:amount) %></th>
@@ -21,6 +22,7 @@
     </thead>
     <% master_prices.each do |price| %>
       <tr id="<%= spree_dom_id price %>" data-hook="prices_row" class="<%= "deleted" if price.discarded? %>">
+        <td><%= price.title %></td>
         <td><%= price.display_country %></td>
         <td><%= price.currency %></td>
         <td><%= price.money.to_html %></td>

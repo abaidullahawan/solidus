@@ -24,6 +24,9 @@
       <thead>
         <tr data-hook="product_properties_header">
           <th></th>
+          <% if params[:price].present? %>
+            <th><%= Spree::ProductProperty.human_attribute_name(:price) %></th>
+          <% end %>
           <th><%= Spree::Property.model_name.human %></th>
           <th><%= Spree::ProductProperty.human_attribute_name(:value) %></th>
           <th class="actions"></th>
@@ -31,7 +34,11 @@
       </thead>
       <tbody id="product_properties" data-hook>
         <%= f.fields_for :product_properties do |pp_form| %>
-          <%= render 'product_property_fields', f: pp_form %>
+          <% if params[:price].present? %>
+            <%= render 'price_property_fields', f: pp_form %>
+          <% elsif !params[:price].present? %>
+            <%= render 'product_property_fields', f: pp_form %>
+          <% end %>
         <% end %>
       </tbody>
     </table>
@@ -91,7 +98,11 @@
           </thead>
           <tbody id="variant_property_values" data-hook>
             <%= rule_form.fields_for :values do |values_form| %>
-              <%= render 'product_property_fields', f: values_form %>
+              <% if params[:price].present? %>
+                <%= render 'price_property_fields', f: values_form %>
+              <% else %>
+                <%= render 'product_property_fields', f: values_form %>
+              <% end %>
             <% end %>
           </tbody>
         </table>

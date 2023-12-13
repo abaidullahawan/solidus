@@ -18,9 +18,7 @@
 
   <% content_for :table_filter do %>
     <div data-hook="admin_property_sidebar">
-
       <%= search_form_for [:admin, @search] do |f| %>
-
           <%- locals = {f: f} %>
 
           <div data-hook="admin_property_index_search">
@@ -29,6 +27,12 @@
                 <div class="field">
                   <%= f.label :name_cont, t('spree.name') %>
                   <%= f.text_field :name_cont, size: 15 %>
+                </div>
+              </div>
+              <div class="col-6">
+                <div class="field">
+                  <%= f.label :field_type_cont, 'Field Type' %>
+                  <%= f.select :field_type_eq, Spree::Property.field_types.keys.map { |type| [type.humanize, type] }, { include_blank: 'Select Type' }, class: 'form-control' %>
                 </div>
               </div>
             </div>
@@ -50,7 +54,9 @@
 <table class="index" id='listing_properties' data-hook>
   <thead>
     <tr data-hook="listing_properties_header">
+      <th><%= Spree::Property.human_attribute_name(:logo) %></th>
       <th><%= Spree::Property.human_attribute_name(:name) %></th>
+      <th><%= Spree::Property.human_attribute_name(:field_type) %></th>
       <th><%= Spree::Property.human_attribute_name(:presentation) %></th>
       <% if !spree_current_user.has_spree_role?("seller") %>
         <th class="actions"></th>
@@ -60,7 +66,13 @@
   <tbody>
     <% @properties.each do |property| %>
       <tr id="<%= spree_dom_id property %>" data-hook="listing_properties_row">
+        <td>
+          <% if property.logo.attached? %>
+            <%= image_tag property.logo.attachment.url, height: '20px', width: '20px' %>
+          <%end%>
+        </td>
         <td><%= property.name %></td>
+        <td><%= property.field_type %></td>
         <td><%= property.presentation %></td>
         <% if !spree_current_user.has_spree_role?("seller") %>
           <td class="actions">

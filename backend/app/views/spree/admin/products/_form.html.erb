@@ -19,6 +19,22 @@
           <% end %>
         </div>
 
+        <div data-hook="admin_product_form_address">
+          <%= f.field_container :address do %>
+            <%= f.label :address, class: 'required' %>
+            <%= f.text_field :address, class: 'fullwidth title', required: true %>
+            <%= f.error_message_on :address %>
+          <% end %>
+        </div>
+
+        <div data-hook="admin_product_form_pin_point">
+          <%= f.field_container :pin_point do %>
+            <%= f.label :pin_point, class: 'required' %>
+            <%= f.text_field :pin_point, class: 'fullwidth title', required: true %>
+            <%= f.error_message_on :pin_point %>
+          <% end %>
+        </div>
+
         <div data-hook="admin_product_form_description">
           <%= f.field_container :description do %>
             <%= f.label :description %>
