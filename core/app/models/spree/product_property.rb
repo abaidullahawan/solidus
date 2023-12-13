@@ -8,6 +8,7 @@ module Spree
 
     belongs_to :product, touch: true, class_name: 'Spree::Product', inverse_of: :product_properties, optional: true
     belongs_to :property, class_name: 'Spree::Property', inverse_of: :product_properties, optional: true
+    belongs_to :price, class_name: 'Spree::Price', optional: true
 
     self.allowed_ransackable_attributes = ['value']
   end
