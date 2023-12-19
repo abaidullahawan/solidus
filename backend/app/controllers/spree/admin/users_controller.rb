@@ -85,6 +85,11 @@ module Spree
         Spree.user_class
       end
 
+      def destroy
+        @user = Spree::User.find_by_id(params[:id])
+        @user.destroy if @user.present?
+      end
+
       private
 
       def collection

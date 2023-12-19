@@ -9,7 +9,7 @@
     <span class="modal-image-trigger" data-toggle="modal" data-target="#modal-image-<%= image.id %>">
       <%= render 'spree/admin/shared/image', image: image, size: :mini %>
     </span>
-    <% image_extension = File.extname(image.filename.to_s).downcase %>
+    <% image_extension = File.extname(image&.filename.to_s).downcase %>
     <% if image_extension == '.jfif'%>
       <%= render(
         "spree/admin/shared/modal",

@@ -1,6 +1,6 @@
 <% size ||= :mini %>
 
-<% image_extension = File.extname(image.filename.to_s).downcase %>
+<% image_extension = File.extname(image&.filename.to_s).downcase %>
 <% if image_extension == '.jfif'%>
     <span class="image-placeholder <%= size %>"></span>
 <%else%>
