@@ -971,6 +971,11 @@ en:
         taxons: Taxons
         users: Users
         zones: Zones
+        templates: Templates
+        roles: Roles
+        pending_posts: Pending Posts
+        approved_posts: Approved Posts
+        rejected_posts: Rejected Posts
       taxons:
         display_order: Display Order
       user:

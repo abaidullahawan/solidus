@@ -51,6 +51,7 @@ module Spree
     STOCK_TABS         ||= [:stock_items]
     USER_TABS          ||= [:users, :store_credits]
     ROLES              ||= [:roles]
+    TEMPLATES              ||= [:templates]
     PENDING_POSTS      ||= [:pending_posts]
     APPROVED_POSTS     ||= [:approved_posts]
     REJECTED_POSTS     ||= [:rejected_posts]
@@ -138,6 +139,13 @@ module Spree
           partial: 'spree/admin/shared/settings_sub_menu',
           url: :admin_stores_path,
           position: 5
+        ),
+        MenuItem.new(
+          TEMPLATES, # This is the new menu item
+          'file',        # Icon name (you can change it)
+          condition: -> { can?(:admin, :Templates) }, # Add your condition here
+          url: :admin_templates_path, # Set the correct URL path
+          position: 6 # Position of the menu item
         ),
         MenuItem.new(
           ROLES, # This is the new menu item

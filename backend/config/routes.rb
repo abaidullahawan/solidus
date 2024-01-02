@@ -141,6 +141,7 @@ Spree::Core::Engine.routes.draw do
       end
     end
     resources :roles
+    resources :templates
 
     resource :general_settings, only: :edit
     resources :stores, only: [:index, :new, :create, :edit, :update]
