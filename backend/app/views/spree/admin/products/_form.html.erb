@@ -1,3 +1,32 @@
+<style>
+.template-btn {
+    display: inline-block;
+    background-color: #ffffff;
+    color: #518ecb;
+    font-size: 14px;
+    line-height: 30px;
+    padding: 0px 16px;
+    margin: 5px 3px;
+    cursor: pointer;
+    border-radius: 20px;
+    border: 2px solid #518ecb;
+    -webkit-transition: all .2s ease-in-out;
+    -moz-transition: all .2s ease-in-out;
+    -o-transition: all .2s ease-in-out;
+    transition: all .2s ease-in-out;
+}
+.template-btn:hover {
+    background-color: #518ecb;
+    color: #ffffff;
+}
+.template-img{
+  height: 150px;
+  width: 150px;
+  left: -154px;
+  position: absolute;
+  top: -100px;
+}
+</style>
 <div data-hook="admin_product_form_fields">
 
   <div class="row">
@@ -38,8 +67,14 @@
         <div data-hook="admin_product_form_description">
           <%= f.field_container :description do %>
             <%= f.label :description %>
-            <%= f.text_area :description, {rows: "#{unless @product.has_variants? then '22' else '15' end}", class: 'fullwidth'} %>
+            <%= f.text_area :description, {rows: "#{unless @product.has_variants? then '7' else '5' end}", class: 'fullwidth', placeholder: 'Describe Your Product'} %>
             <%= f.error_message_on :description %>
+          <% end %>
+        </div>
+        <div class='position-relative'>
+          <%= render partial: 'img' %>
+          <% Spree::Template.all.each do |temp| %>
+            <button type='button' class='template-btn' value="<%= temp.description %>"><%= temp.name %></button>
           <% end %>
         </div>
       </div>
@@ -239,3 +274,13 @@
 
   <div class="clear"></div>
 </div>
+
+
+<script>
+  $(document).ready(function(){
+    $('.template-btn').on('click', function(){
+      $('#product_description').val($('#product_description').val()+$(this).val())
+      $(this).addClass('d-none')
+    })
+  })
+</script>
