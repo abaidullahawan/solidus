@@ -17,7 +17,7 @@ module Spree
 
     after_touch :touch_all_products
 
-    self.allowed_ransackable_attributes = %w[name field_type]
+    #self.allowed_ransackable_attributes = %w[name field_type]
 
     private
 

@@ -131,9 +131,9 @@ module Spree
 
     alias :options :product_option_types
 
-    self.allowed_ransackable_associations = %w[stores variants_including_master master variants]
-    self.allowed_ransackable_attributes = %w[name slug]
-    self.allowed_ransackable_scopes = %i[available with_discarded with_all_variant_sku_cont with_kept_variant_sku_cont]
+    # self.allowed_ransackable_associations = %w[stores variants_including_master master variants]
+    # self.allowed_ransackable_attributes = %w[name slug]
+    # self.allowed_ransackable_scopes = %i[available with_discarded with_all_variant_sku_cont with_kept_variant_sku_cont]
 
     # @return [Boolean] true if there are any variants
     def has_variants?
