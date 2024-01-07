@@ -14,7 +14,7 @@ module Spree
 
     default_scope -> { order(position: :asc) }
 
-    self.allowed_ransackable_attributes = %w[name]
+    #self.allowed_ransackable_attributes = %w[name]
 
     include ::Spree::Config.taxon_attachment_module
     

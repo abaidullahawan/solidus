@@ -31,7 +31,7 @@ module Spree
     money_methods :amount, :price
     alias_method :money, :display_amount
 
-    self.allowed_ransackable_attributes = %w(amount variant_id currency country_iso)
+    #self.allowed_ransackable_attributes = %w(amount variant_id currency country_iso)
 
     # An alias for #amount
     def price

@@ -50,9 +50,9 @@ module Spree
     end
     scope :applied, -> { joins(:order_promotions).distinct }
 
-    self.allowed_ransackable_associations = ['codes']
-    self.allowed_ransackable_attributes = %w[name path promotion_category_id]
-    self.allowed_ransackable_scopes = %i[active]
+    # self.allowed_ransackable_associations = ['codes']
+    # #self.allowed_ransackable_attributes = %w[name path promotion_category_id]
+    # self.allowed_ransackable_scopes = %i[active]
 
     def self.order_activatable?(order)
       order && !UNACTIVATABLE_ORDER_STATES.include?(order.state)
