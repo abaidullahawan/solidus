@@ -36,7 +36,7 @@
         <%= f.fields_for :product_properties do |pp_form| %>
           <% if params[:price].present? %>
             <%= render 'price_property_fields', f: pp_form %>
-          <% elsif !params[:price].present? %>
+          <% elsif params[:detail].present? %>
             <%= render 'product_property_fields', f: pp_form %>
           <% end %>
         <% end %>

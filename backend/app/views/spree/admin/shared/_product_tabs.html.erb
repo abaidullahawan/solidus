@@ -17,7 +17,7 @@
         <%= link_to plural_resource_name(Spree::Price), spree.admin_product_prices_url(@product) %>
       <% end if can?(:admin, Spree::Price) && !@product.deleted? %>
       <%= content_tag :li, class: ('active' if current == 'Product Properties') do %>
-        <%= link_to 'Detail Fields', spree.admin_product_product_properties_url(@product) %>
+        <%= link_to 'Detail Fields', spree.admin_product_product_properties_url(@product, detail: true) %>
       <% end if can?(:admin, Spree::Price) && !@product.deleted? %>
       <%= content_tag :li, class: ('active' if current == 'Product Properties') do %>
         <%= link_to 'Price Fields', spree.admin_product_product_properties_url(@product, price: true) %>

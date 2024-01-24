@@ -10,5 +10,9 @@ module Spree
     def admin?
       name == "admin"
     end
+
+    def guest?
+      name == "guest"
+    end
   end
 end
