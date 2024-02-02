@@ -88,7 +88,7 @@ module Spree
         params[:q] ||= {}
         params[:q][:s] ||= "name asc"
         # @search needs to be defined as this is passed to search_form_for
-        @search = super.ransack(params[:q])
+        @search = super.where(is_approved: true).ransack(params[:q])
         @collection = @search.result.
               order(id: :asc).
               includes(product_includes).
