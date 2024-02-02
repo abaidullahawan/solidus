@@ -16,7 +16,7 @@
   <div class="col-6">
     <%= f.field_container :presentation do %>
       <%= f.label :presentation, class: 'required' %><br>
-      <%= f.text_field :presentation, class: 'fullwidth' %>
+      <%= f.select :presentation, Spree::Property.presentations.keys.map { |type| [type.humanize, type] }, { include_blank: 'Select Type' }, class: 'form-control', required: true %>
       <%= f.error_message_on :presentation %>
     <% end %>
   </div>
