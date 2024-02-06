@@ -34,6 +34,7 @@ module Spree
     has_many :product_promotion_rules, dependent: :destroy
     has_many :promotion_rules, through: :product_promotion_rules
 
+    belongs_to :business, optional: true
     belongs_to :tax_category, class_name: 'Spree::TaxCategory', optional: true
     belongs_to :shipping_category, class_name: 'Spree::ShippingCategory', inverse_of: :products, optional: true
 
@@ -116,6 +117,7 @@ module Spree
 
     before_validation :normalize_slug, on: :update
     before_validation :validate_master
+    before_create :strip_name
 
     validates :meta_keywords, length: { maximum: 255 }
     validates :meta_title, length: { maximum: 255 }
@@ -295,6 +297,10 @@ module Spree
     end
 
     private
+
+    def strip_name
+      self.name = name&.strip()
+    end
 
     def any_variants_not_track_inventory?
       if variants_including_master.loaded?
