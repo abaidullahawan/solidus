@@ -35,7 +35,7 @@
         <div data-hook="admin_product_form_name">
           <%= f.field_container :name do %>
             <%= f.label :name, class: 'required' %>
-            <%= f.text_field :name, class: 'fullwidth title', required: true %>
+            <%= f.text_field :name, class: 'fullwidth title', required: true, maxlength: '150' %>
             <%= f.error_message_on :name %>
           <% end %>
         </div>
@@ -262,6 +262,8 @@
       </div>
       <% if spree_current_user.has_spree_role?('seller') %>
         <%= f.hidden_field :is_pending, value: true %>
+      <% else %>
+        <%= f.hidden_field :is_approved, value: true %>
       <% end %>
       <%= f.hidden_field :spree_user_id, value: spree_current_user.id %>
     </div>

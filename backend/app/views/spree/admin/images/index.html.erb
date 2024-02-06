@@ -17,24 +17,28 @@
 <% if can?(:create, Spree::Image) %>
   <fieldset class="no-border-bottom">
     <legend style="text-align: center"><%= t(".upload_images") %></legend>
-
-    <div id="upload-zone">
-      <%= form_for [:admin, @product, Spree::Image.new],
-          html: { multipart: true, id: 'upload-form' } do |f| %>
-        <label class="upload" ondragenter="handleDragEnter(event)" ondragover="handleDragOver(event)" ondrop="handleDrop(event)">
-          <i class="fa fa-5x fa-cloud-upload"></i>
-          <p>
-            <span class="button"><%= t(".choose_files") %></span>
-          </p>
-          <p>
-            <%= t(".drag_and_drop") %>
-          </p>
-
-          <%= f.file_field :attachment, multiple: '', class: 'hidden', accept: '.jpg, .jpeg, .png' %>
-          <%= f.hidden_field :viewable_id, value: @product.master.id %>
-        </label>
-      <% end %>
-    </div>
+    <% images_count = @product&.gallery&.images&.count.to_i %>
+    <% if images_count > 9 %>
+      <h3 class='text-center text-danger'>You have already uploaded 10 images.</h3>
+    <% else %>
+      <div id="upload-zone">
+        <%= form_for [:admin, @product, Spree::Image.new],
+            html: { multipart: true, id: 'upload-form' } do |f| %>
+          <label class="upload" ondragenter="handleDragEnter(event)" ondragover="handleDragOver(event)" ondrop="handleDrop(event)">
+            <i class="fa fa-5x fa-cloud-upload"></i>
+            <p>
+              <span class="button"><%= t(".choose_files") %></span>
+            </p>
+            <p>
+              <%= t(".drag_and_drop") %>
+            </p>
+            <%= f.file_field :attachment, multiple: '', class: 'hidden', accept: '.jpg, .jpeg, .png', onchange: 'checkNumberOfFiles(this)', data: { max_images: (10-images_count) } %>
+            <%= f.hidden_field :viewable_id, value: @product.master.id %>
+            <b class='d-block text-danger'>Note: You've already uploaded <span class='from-count'><%= images_count %></span> images; you can now only upload <span class='to-count'><%= 10-images_count %></span> more.</b>
+          </label>
+        <% end %>
+      </div>
+    <% end %>
 
     <div id="progress-zone" class="row"></div>
   </fieldset>
@@ -76,9 +80,14 @@
   </div>
 <% end %>
 
-
-
 <script>
+  function checkNumberOfFiles(input) {
+    if (input.files.length > $(input).data('max-images')) {
+      alert("You can only upload a maximum of "+$(input).data('max-images')+" files.");
+      input.value = '';
+    }
+  }
+
   function handleDragEnter(event) {
     event.preventDefault();
     event.target.classList.add('drag-over');
@@ -91,17 +100,15 @@
   function handleDrop(event) {
     event.preventDefault();
     event.target.classList.remove('drag-over');
-
-    const files = event.dataTransfer.files;
+    var files = event.dataTransfer.files;
     const allowedExtensions = ['.jpg', '.jpeg', '.png'];
 
     for (const file of files) {
       const extension = `.${file.name.split('.').pop()}`;
-      if (!allowedExtensions.includes(extension.toLowerCase())) {
-        alert('Invalid file type. Please drop only JPG, JPEG, or PNG files.');
-        return;
-      }
+      // if (!allowedExtensions.includes(extension.toLowerCase())) {
+      //   alert('Invalid file type. Please drop only JPG, JPEG, or PNG files.');
+      //   return false;
+      // }
     }
-    // Continue with your drop handling logic here
   }
 </script>
