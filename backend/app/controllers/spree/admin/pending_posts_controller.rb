@@ -3,7 +3,7 @@ module Spree
   module Admin
     class PendingPostsController < Spree::Admin::BaseController
       def index
-        @pending_posts = Spree::Product.all.where(is_approved: [false, nil])
+        @pending_posts = Spree::Product.all.where(is_approved: [false, nil], is_rejected: [false, nil])
       end
 
       def approve

@@ -1,1 +1,163 @@
-<%# Placeholder view for a home dashboard %>
+<h1 class='py-4'>Dashboard</h1>
+<div class='row'>
+  <div class="col-xl-3 col-md-6 mb-4">
+    <a href="<%= admin_users_path %>" class="dashboard-card border-left-primary shadow h-100 py-4">
+      <div class="card-body">
+        <div class="row no-gutters align-items-center">
+          <div class="col mr-2">
+            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+              Active Users
+            </div>
+            <div class="h5 mb-0 font-weight-bold text-gray-800"><%= @active_users %></div>
+          </div>
+          <div class="col-auto text-primary">
+            <i class='fa fa-users fa-2x'></i>
+          </div>
+        </div>
+      </div>
+    </a>
+  </div>
+  <div class="col-xl-3 col-md-6 mb-4">
+    <a href="<%= admin_products_path %>" class="dashboard-card border-left-success shadow h-100 py-4">
+      <div class="card-body">
+        <div class="row no-gutters align-items-center">
+          <div class="col mr-2">
+            <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
+              Approved Ads
+            </div>
+            <div class="h5 mb-0 font-weight-bold text-gray-800"><%= @approved_ads %></div>
+          </div>
+          <div class="col-auto text-success">
+            <i class='fa fa-check fa-2x'></i>
+          </div>
+        </div>
+      </div>
+    </a>
+  </div>
+  <div class="col-xl-3 col-md-6 mb-4">
+    <a href="<%= admin_pending_posts_path %>" class="dashboard-card border-left-warning shadow h-100 py-4">
+      <div class="card-body">
+        <div class="row no-gutters align-items-center">
+          <div class="col mr-2">
+            <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
+              Pending Ads
+            </div>
+            <div class="h5 mb-0 font-weight-bold text-gray-800"><%= @pending_ads %></div>
+          </div>
+          <div class="col-auto text-warning">
+            <i class='fa fa-hourglass fa-2x'></i>
+          </div>
+        </div>
+      </div>
+    </a>
+  </div>
+  <div class="col-xl-3 col-md-6 mb-4">
+    <a href="<%= admin_rejected_posts_path %>" class="dashboard-card border-left-danger shadow h-100 py-4">
+      <div class="card-body">
+        <div class="row no-gutters align-items-center">
+          <div class="col mr-2">
+            <div class="text-xs font-weight-bold text-danger text-uppercase mb-1">
+              Rejected Ads
+            </div>
+            <div class="h5 mb-0 font-weight-bold text-gray-800"><%= @rejected_ads %></div>
+          </div>
+          <div class="col-auto text-danger">
+            <i class='fa fa-ban fa-2x'></i>
+          </div>
+        </div>
+      </div>
+    </a>
+  </div>
+  <div class='col-xl-6 col-md-12 mb-4'>
+    <div class="dashboard-card shadow h-100 p-4">
+      <h3>Product by Months</h3>
+      <canvas id="productsBymonth" width="400" height="400"></canvas>
+    </div>
+  </div>
+  <div class='col-xl-6 col-md-12 mb-4'>
+    <div class="dashboard-card shadow h-100 p-4">
+      <h3>Product by Stores</h3>
+      <canvas id="productsByStore" width="400" height="400"></canvas>
+    </div>
+  </div>
+</div>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    // Fetch data from Rails controller if needed
+    var storeNames = <%= raw @products_by_store.keys %>;
+    var numberOfProducts = <%= raw @products_by_store.values %>;
+    // Generate random colors
+    var randomColors = [];
+    for (var i = 0; i < storeNames.length; i++) {
+      var r = Math.floor(Math.random() * 256);
+      var g = Math.floor(Math.random() * 256);
+      var b = Math.floor(Math.random() * 256);
+      var bgColor = 'rgba(' + r + ', ' + g + ', ' + b + ', 0.4)';
+      var borderColor = 'rgba(' + (r * 0.8) + ', ' + (g * 0.8) + ', ' + (b * 0.8) + ', 1)';
+      randomColors.push({ backgroundColor: bgColor, borderColor: borderColor });
+    }
+
+    // Chart.js initialization
+    var ctx = document.getElementById('productsByStore').getContext('2d');
+    var myChart = new Chart(ctx, {
+      type: 'pie', // Change this to the type of graph you want (e.g., line, pie, etc.)
+      data: {
+        labels: storeNames,
+        datasets: [{
+          label: 'Product by Store',
+          data: numberOfProducts,
+          backgroundColor: randomColors.map(color => color.backgroundColor),
+          borderColor: randomColors.map(color => color.borderColor),
+          borderWidth: 1
+        }]
+      },
+      options: {
+        scales: {
+          yAxes: [{
+            ticks: {
+              beginAtZero: true
+            }
+          }]
+        }
+      }
+    });
+
+    var monthNames = <%= raw @products_by_month.keys %>;
+    var numberOfProducts = <%= raw @products_by_month.values %>;
+
+    var randomColors = [];
+    for (var i = 0; i < monthNames.length; i++) {
+      var r = Math.floor(Math.random() * 256);
+      var g = Math.floor(Math.random() * 256);
+      var b = Math.floor(Math.random() * 256);
+      var bgColor = 'rgba(' + r + ', ' + g + ', ' + b + ', 0.4)';
+      var borderColor = 'rgba(' + (r * 0.8) + ', ' + (g * 0.8) + ', ' + (b * 0.8) + ', 1)';
+      randomColors.push({ backgroundColor: bgColor, borderColor: borderColor });
+    }
+
+    var ctx = document.getElementById('productsBymonth').getContext('2d');
+    var myChart = new Chart(ctx, {
+      type: 'bar', // Change this to the type of graph you want (e.g., line, pie, etc.)
+      data: {
+        labels: monthNames,
+        datasets: [{
+          label: 'Product by Store',
+          data: numberOfProducts,
+          backgroundColor: randomColors.map(color => color.backgroundColor),
+          borderColor: randomColors.map(color => color.borderColor),
+          borderWidth: 1
+        }]
+      },
+      options: {
+        scales: {
+          yAxes: [{
+            ticks: {
+              beginAtZero: true
+            }
+          }]
+        }
+      }
+    });
+  });
+</script>

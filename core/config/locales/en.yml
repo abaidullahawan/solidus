@@ -976,6 +976,7 @@ en:
         pending_posts: Pending Posts
         approved_posts: Approved Posts
         rejected_posts: Rejected Posts
+        dashboard: Dashboard
       taxons:
         display_order: Display Order
       user:

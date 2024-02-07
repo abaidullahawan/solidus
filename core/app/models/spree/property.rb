@@ -15,6 +15,11 @@ module Spree
       Pricing: 'Pricing'
     }, _prefix: true
 
+    enum presentation: {
+      number: 'number',
+      text: 'text'
+    }, _prefix: true
+
     after_touch :touch_all_products
 
     #self.allowed_ransackable_attributes = %w[name field_type]

@@ -111,3 +111,53 @@
     border-radius: 0 0 3px 3px;
   }
 }
+
+
+// dashboard CSS
+.shadow {
+  box-shadow: 0 .15rem 1.75rem 0 rgba(58,59,69,.15)!important;
+}
+.dashboard-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  word-wrap: break-word;
+  background-color: #fff;
+  background-clip: border-box;
+  border: 1px solid #e3e6f0;
+  border-radius: 0.35rem;
+}
+
+.border-left-success {
+  border-left: 0.40rem solid #1cc88a!important;
+}
+
+.border-left-primary {
+  border-left: 0.40rem solid #4e73df!important;
+}
+
+.border-left-warning {
+  border-left: 0.40rem solid #f6c23e!important;
+}
+
+.border-left-danger {
+  border-left: 0.40rem solid #e74a3b!important;
+}
+
+
+.text-success {
+  color: #1cc88a!important;
+}
+
+.text-primary {
+  color: #4e73df!important;
+}
+
+.text-warning {
+  color: #f6c23e!important;
+}
+
+.text-danger {
+  color: #e74a3b!important;
+}
