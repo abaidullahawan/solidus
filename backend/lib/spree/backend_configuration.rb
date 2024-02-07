@@ -55,6 +55,7 @@ module Spree
     PENDING_POSTS      ||= [:pending_posts]
     APPROVED_POSTS     ||= [:approved_posts]
     REJECTED_POSTS     ||= [:rejected_posts]
+    Dashboard     ||= [:dashboard]
 
     # Items can be added to the menu by using code like the following:
     #
@@ -82,17 +83,24 @@ module Spree
     def menu_items
       @menu_items ||= [
         MenuItem.new(
+          Dashboard, # This is the new menu item
+          'home',        # Icon name (you can change it)
+          condition: -> { can?(:admin, :Dashboard) }, # Add your condition here
+          url: :home_admin_dashboards_path, # Set the correct URL path
+          position: 0 # Position of the menu item
+        ),
+        MenuItem.new(
           ORDER_TABS,
           'shopping-cart',
           condition: -> { can?(:admin, Spree::Order) },
-          position: 0
+          position: 1
         ),
         MenuItem.new(
           PRODUCT_TABS,
           'th-large',
           condition: -> { can?(:admin, Spree::Product) },
           partial: 'spree/admin/shared/product_sub_menu',
-          position: 1
+          position: 2
         ),
         MenuItem.new(
           PROMOTION_TABS,
@@ -100,7 +108,7 @@ module Spree
           partial: 'spree/admin/shared/promotion_sub_menu',
           condition: -> { can?(:admin, Spree::Promotion) },
           url: :admin_promotions_path,
-          position: 2
+          position: 3
         ),
         MenuItem.new(
           STOCK_TABS,
@@ -109,14 +117,14 @@ module Spree
           label: :stock,
           url: :admin_stock_items_path,
           match_path: '/stock_items',
-          position: 3
+          position: 4
         ),
         MenuItem.new(
           USER_TABS,
           'users',
           condition: -> { Spree.user_class && can?(:admin, Spree.user_class) },
           url: :admin_users_path,
-          position: 4
+          position: 5
         ),
         MenuItem.new(
           CONFIGURATION_TABS,
@@ -138,42 +146,42 @@ module Spree
           label: :settings,
           partial: 'spree/admin/shared/settings_sub_menu',
           url: :admin_stores_path,
-          position: 5
+          position: 6
         ),
         MenuItem.new(
           TEMPLATES, # This is the new menu item
           'file',        # Icon name (you can change it)
           condition: -> { can?(:admin, :Templates) }, # Add your condition here
           url: :admin_templates_path, # Set the correct URL path
-          position: 6 # Position of the menu item
+          position: 7 # Position of the menu item
         ),
         MenuItem.new(
           ROLES, # This is the new menu item
           'user-circle',        # Icon name (you can change it)
           condition: -> { can?(:admin, :Roles) }, # Add your condition here
           url: :admin_roles_path, # Set the correct URL path
-          position: 6 # Position of the menu item
+          position: 8 # Position of the menu item
         ),
         MenuItem.new(
           PENDING_POSTS, # This is the new menu item
           'hourglass',        # Icon name (you can change it)
           condition: -> { true },
           url: :admin_pending_posts_path, # Set the correct URL path
-          position: 7 # Position of the menu item,
+          position: 9 # Position of the menu item,
         ),
         MenuItem.new(
           APPROVED_POSTS, # This is the new menu item
           'check',        # Icon name (you can change it)
           condition: -> { true },
           url: :admin_approved_posts_path, # Set the correct URL path
-          position: 8 # Position of the menu item,
+          position: 10 # Position of the menu item,
         ),
         MenuItem.new(
           REJECTED_POSTS, # This is the new menu item
           'ban',        # Icon name (you can change it)
           condition: -> { true },
           url: :admin_rejected_posts_path, # Set the correct URL path
-          position: 9 # Position of the menu item,
+          position: 11 # Position of the menu item,
         )
       ]
     end

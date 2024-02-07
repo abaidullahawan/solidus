@@ -13,7 +13,7 @@ body {
 }
 
 .content-wrapper {
-  background-color: $content-wrapper-bg;
+  // background-color: $content-wrapper-bg;
   padding-top: 1rem;
   padding-left: $grid-gutter-width;
   padding-right: $grid-gutter-width;
@@ -21,7 +21,7 @@ body {
   &:not(.full-width) {
     margin-left: auto;
     margin-right: auto;
-    max-width: map-get($container-max-widths, "xl");
+    max-width: 90%;
   }
 }
 

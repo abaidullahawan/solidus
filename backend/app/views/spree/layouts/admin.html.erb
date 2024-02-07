@@ -1,6 +1,7 @@
 <!doctype html>
 <html lang="<%= I18n.locale %>">
   <head data-hook="admin_inside_head">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <%= render 'spree/admin/shared/head' %>
   </head>
   <body class="admin <%= "admin-nav-hidden" if cookies[:admin_nav_hidden] == "true" %>">

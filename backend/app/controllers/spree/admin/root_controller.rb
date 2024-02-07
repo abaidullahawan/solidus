@@ -6,7 +6,7 @@ module Spree
       skip_before_action :authorize_admin
 
       def index
-        redirect_to admin_root_redirect_path
+        redirect_to home_admin_dashboards_path
       end
 
       private
